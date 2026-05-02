@@ -1,21 +1,6 @@
 ﻿# 11 - move_to_truenas.sh Script
 
-This script runs automatically when Transmission finishes downloading a torrent. It mounts the TrueNAS SMB shares and notifies Radarr, Sonarr, and Lidarr via their APIs to scan the completed downloads.
-
-How to Use
-
-Replace the API Keys
-Go to each app → Settings → General → Copy the API Key
-Paste them into the script (lines 4-6)
-
-Make the script executableBashchmod +x /home/pi/move_to_truenas.sh
-Configure Transmission to use the script
-Open Transmission settings (~/.config/transmission/settings.json)
-Ensure this line exists:JSON"script-torrent-done-filename": "/home/pi/move_to_truenas.sh",
-"script-torrent-done-enabled": true
-
-Test the scriptBashTR_TORRENT_DIR="/media/pi/SSD1/Downloads/complete" TR_TORRENT_NAME="testfile.mkv" /home/pi/mov
-
+This script runs automatically when Transmission finishes downloading a torrent. It mounts the TrueNAS SMB shares and notifies **Radarr, Sonarr, and Lidarr** via their APIs to scan and import the completed files.
 
 ## Full Script (`scripts/move_to_truenas.sh`)
 
@@ -31,7 +16,7 @@ RADARR_URL="http://192.168.10.101:7878/api/v3/command"
 SONARR_URL="http://192.168.10.101:8989/api/v3/command"
 LIDARR_URL="http://192.168.10.101:8686/api/v3/command"
 
-# SMB Credentials (for mounting TrueNAS shares)
+# SMB Credentials
 SMB_USER="mediauser"
 SMB_PASS="DNguyen1206"
 # =====================================================
