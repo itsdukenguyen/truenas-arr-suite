@@ -4,14 +4,17 @@ This script runs automatically when Transmission finishes downloading a torrent.
 
 How to Use
 
-1. Replace the API keys with your actual keys from each *arr app (Settings → General).
-2. Make the script executable:
-Bash
-chmod +x /home/pi/move_to_truenas.sh
+Replace the API Keys
+Go to each app → Settings → General → Copy the API Key
+Paste them into the script (lines 4-6)
 
-3. Ensure it's set in Transmission's settings.json:
-JSON
-"script-torrent-done-filename": "/home/pi/move_to_truenas.sh"
+Make the script executableBashchmod +x /home/pi/move_to_truenas.sh
+Configure Transmission to use the script
+Open Transmission settings (~/.config/transmission/settings.json)
+Ensure this line exists:JSON"script-torrent-done-filename": "/home/pi/move_to_truenas.sh",
+"script-torrent-done-enabled": true
+
+Test the scriptBashTR_TORRENT_DIR="/media/pi/SSD1/Downloads/complete" TR_TORRENT_NAME="testfile.mkv" /home/pi/mov
 
 
 ## Full Script (`scripts/move_to_truenas.sh`)
