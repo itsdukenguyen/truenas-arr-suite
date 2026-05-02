@@ -1,13 +1,13 @@
 ﻿# 08 - Lidarr Setup
 
 ## Root Folder
-![Root Folder](../screenshots/02-lidarr-root-folder.png)
+![Root Folder](../screenshots/lidarr/02-lidarr-root-folder.png)
 
 ## Media Management
-![Naming](../screenshots/03-lidarr-media-management.png)
+![Naming](../screenshots/lidarr/03-lidarr-media-management.png)
 
 ## Download Client
-![Transmission](../screenshots/04-lidarr-download-client.png)
+![Transmission](../screenshots/lidarr/04-lidarr-download-client.png)
 
 ## Jellyfin Connection
-![Jellyfin](../screenshots/05-lidarr-connect-jellyfin.png)
+![Jellyfin](../screenshots/lidarr/05-lidarr-connect-jellyfin.png)

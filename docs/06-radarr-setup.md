@@ -10,4 +10,4 @@
 ![Transmission](../screenshots/radarr/04-radarr-download-client.png)
 
 ## Jellyfin Connection
-![Jellyfin](../screenshots/05-radarr-connect-jellyfin.png)
+![Jellyfin](../screenshots/radarr/05-radarr-connect-jellyfin.png)
