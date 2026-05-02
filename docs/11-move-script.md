@@ -1,5 +1,5 @@
-# 11 - move_to_truenas.sh
+﻿# 11 - move_to_truenas.sh Script
 
-Script located in `scripts/move_to_truenas.sh`
+Located in scripts/move_to_truenas.sh
 
-Uses API calls to notify Radarr, Sonarr, and Lidarr to scan the `/downloads` folder after Transmission completes a download.
+The script mounts SMB shares and uses API calls to notify Radarr, Sonarr, and Lidarr to scan the /downloads folder after a torrent completes.
