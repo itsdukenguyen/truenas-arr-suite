@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 ﻿# TrueNAS SCALE *arr Suite Setup
 
 [![TrueNAS SCALE](https://img.shields.io/badge/TrueNAS-SCALE-00b2a9?style=for-the-badge&logo=truenas)](https://www.truenas.com/)
@@ -21,11 +22,29 @@ Complete, battle-tested documentation for my automated media server stack on **T
 
 ## Table of Contents
 
+=======
+# TrueNAS SCALE *arr Suite Setup
+
+Complete documentation for my automated media server stack on TrueNAS SCALE:
+
+- **Radarr** - Movies
+- **Sonarr** - TV Shows
+- **Lidarr** - Music
+- **Bazarr** - Subtitles
+- **Transmission** (on Raspberry Pi) + custom move script
+- **Jellyfin** - Media playback
+
+## Table of Contents
+>>>>>>> 6ea02ae598dbe168a6f60e4618e821d76b9d2885
 - [Prerequisites](./docs/01-prerequisites.md)
 - [Network & VLAN Setup](./docs/02-network-setup.md)
 - [Datasets & Permissions](./docs/03-datasets-and-permissions.md)
 - [SMB Shares](./docs/04-smb-shares.md)
+<<<<<<< HEAD
 - [Transmission on Raspberry Pi](./docs/05-transmission-rpi.md)
+=======
+- [Transmission on RPi](./docs/05-transmission-rpi.md)
+>>>>>>> 6ea02ae598dbe168a6f60e4618e821d76b9d2885
 - [Radarr Setup](./docs/06-radarr-setup.md)
 - [Sonarr Setup](./docs/07-sonarr-setup.md)
 - [Lidarr Setup](./docs/08-lidarr-setup.md)
@@ -35,11 +54,15 @@ Complete, battle-tested documentation for my automated media server stack on **T
 - [Troubleshooting](./docs/12-troubleshooting.md)
 
 ## Screenshots
+<<<<<<< HEAD
 
 See the [screenshots/](./screenshots/) folder for visual references of every major step.
 
 ## Apps Export
 See the [pps/](./apps/) folder for exported TrueNAS App configurations (YAML).
+=======
+See the `screenshots/` folder.
+>>>>>>> 6ea02ae598dbe168a6f60e4618e821d76b9d2885
 
 ## Status
 **Last Updated**: May 2026
