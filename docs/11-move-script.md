@@ -2,6 +2,18 @@
 
 This script runs automatically when Transmission finishes downloading a torrent. It mounts the TrueNAS SMB shares and notifies Radarr, Sonarr, and Lidarr via their APIs to scan the completed downloads.
 
+How to Use
+
+1. Replace the API keys with your actual keys from each *arr app (Settings → General).
+2. Make the script executable:
+Bash
+chmod +x /home/pi/move_to_truenas.sh
+
+3. Ensure it's set in Transmission's settings.json:
+JSON
+"script-torrent-done-filename": "/home/pi/move_to_truenas.sh"
+
+
 ## Full Script (`scripts/move_to_truenas.sh`)
 
 ```bash
@@ -55,17 +67,3 @@ curl -X POST "$LIDARR_URL" \
      -d '{"name":"DownloadedAlbumsScan","path":"/downloads"}' --silent --output /dev/null
 
 echo "Scan notifications sent to *arr apps."
-
-
-
-
-How to Use
-
-1. Replace the API keys with your actual keys from each *arr app (Settings → General).
-2. Make the script executable:
-Bash
-chmod +x /home/pi/move_to_truenas.sh
-
-3. Ensure it's set in Transmission's settings.json:
-JSON
-"script-torrent-done-filename": "/home/pi/move_to_truenas.sh"
