@@ -4,22 +4,19 @@
 
 ## Common Issues & Solutions
 
-| Issue                              | Possible Cause                     | Solution |
-|------------------------------------|------------------------------------|--------|
-| Mount disappears after reboot      | Missing `/etc/fstab` entry        | Add UUID mount and run `sudo mount -a` |
-| Transmission daemon won't start    | Permission or config error         | Check `journalctl -u transmission-daemon` |
-| GUI and Web not syncing            | GUI using local config             | Clear `~/.config/transmission` and connect remotely |
-| Path does not exist in *arr apps   | Incorrect Remote Path Mapping      | Map `/mnt/SSD1/Downloads/complete` → `/mnt/TrueNAS/Downloads/complete` |
-| SMB mount fails on RPi             | Credentials or permissions         | Verify `/root/.smbcredentials` and `uid=pi,gid=pi` |
-| Firewall / Port 9091 blocked       | ER-4 or local firewall             | Check LAN_IN Rule 19 + `sudo iptables -L` |
-| Downloads not moving to TrueNAS    | Post-processing script or mapping  | Verify move script and Remote Path Mapping |
+| Issue                                | Possible Cause                    | Solution |
+|--------------------------------------|-----------------------------------|--------|
+| Mount disappears after reboot        | Missing fstab entry               | Add UUID mount + `sudo mount -a` |
+| Transmission daemon won't start      | Config / permission error         | `journalctl -u transmission-daemon -xe` |
+| GUI and Web not syncing              | Local config conflict             | `rm -rf ~/.config/transmission` + configure Remote |
+| Path does not exist in *arr apps     | Wrong Remote Path Mapping         | Map `/mnt/SSD1/Downloads/complete` → TrueNAS path |
+| SMB mount fails on RPi               | Credentials issue                 | Check `/root/.smbcredentials` |
+| Firewall / Port 9091 blocked         | ER-4 or local rules               | Verify LAN_IN Rule 19 |
 
-## Transmission GUI + Web Sync Issues
+## Transmission GUI + Web Sync
 
-1. Check running processes:
-   ```bash
-   ps aux | grep transmission
-   sudo systemctl status transmission-daemon
-   
-   
+```bash
+ps aux | grep transmission
+sudo systemctl status transmission-daemon
 rm -rf ~/.config/transmission
+transmission-gtk
