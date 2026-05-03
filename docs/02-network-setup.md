@@ -2,23 +2,31 @@
 
 
 
-\## VLANs
-
-\- VLAN 10: Servers (Radarr, Sonarr, Lidarr, Bazarr, Transmission @192.168.10.115)
+\## VLAN Configuration
 
 
 
-\## Key ER-4 Firewall Rules (from config)
+\- \*\*VLAN 10 (Servers)\*\*: Radarr, Sonarr, Lidarr, Bazarr, Transmission (`192.168.10.115`)
 
-\- LAN\_IN Rule 19: Allow VPN → VLAN10 Services (ports 445, 9000, 7878, 20489)
 
-\- LAN\_IN Rule 30: Allow VLAN10 → Internet
 
-\- LAN\_IN Rule 40: Allow VLAN20 → Internet
+\## Key EdgeRouter 4 Firewall Rules
+
+
+
+| Rule | Description                              | Source          | Destination     | Ports          |
+
+|------|------------------------------------------|-----------------|-----------------|----------------|
+
+| 19   | Allow VPN → VLAN10 Services              | `100.64.0.0/10` | VLAN 10         | 445, 9000, etc.|
+
+| 30   | Allow Servers → Internet                 | VLAN 10         | Internet        | Any            |
+
+| 40   | Allow IoT → Internet                     | VLAN 20         | Internet        | Any            |
 
 
 
 \## SMB Requirements
 
-\- Port 445 allowed from RPi to TrueNAS
+\- Port \*\*445\*\* must be allowed from Raspberry Pi to TrueNAS
 

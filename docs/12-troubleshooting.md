@@ -1,12 +1,11 @@
-﻿\# 12 - Troubleshooting
+﻿# 12 - Troubleshooting
 
+## Common Issues & Solutions
 
-
-\- Mount disappears on reboot → Use Init/Shutdown Script
-
-\- Path not found → Check Remote Path Mapping (`/downloads`)
-
-\- Duplicates → Enable "Remove" in Completed Download Handling
-
-\- Firewall issues → Check ER-4 LAN\_IN Rule 19 (SMB)
-
+| Issue                              | Solution |
+|------------------------------------|--------|
+| Mount disappears after reboot      | Use **Init/Shutdown Script** in TrueNAS |
+| Path does not exist in *arr apps   | Check **Remote Path Mapping** (`/downloads`) |
+| Duplicates in library              | Enable **Remove** in Completed Download Handling |
+| Firewall / SMB issues              | Verify ER-4 **LAN_IN Rule 19** (port 445) |
+| Subtitles not downloading          | Check Bazarr providers and API keys |
