@@ -19,21 +19,21 @@ This guide documents a clean, reliable Transmission setup using a dedicated 2TB 
 
 ## SSD Setup - Clean Mount at `/mnt/SSD1`
 
-### 1. Prepare the SSD
+### 1. Prepare the SSD (One-time)
 
 ```bash
-# Wipe and partition
+# Wipe and partition SSD1
 sudo wipefs -a /dev/sda
 sudo fdisk /dev/sda
-# Commands inside fdisk: o → n → p → 1 → [Enter] → [Enter] → w
+# Inside fdisk: o → n → p → 1 → [Enter] → [Enter] → w
 
 sudo mkfs.ext4 /dev/sda1
 
-# Mount
+# Create mount point and mount
 sudo mkdir -p /mnt/SSD1
 sudo mount /dev/sda1 /mnt/SSD1
 
-# Get UUID
+# Get UUID for persistent mount
 lsblk -f | grep sda1
 
 
@@ -47,20 +47,21 @@ sudo mkdir -p /mnt/SSD1/Downloads/{complete,incomplete}
 sudo chown -R debian-transmission:debian-transmission /mnt/SSD1/Downloads
 sudo chmod -R 775 /mnt/SSD1/Downloads
 
-# Remove old stale mounts
+# Clean up old stale mount points
 sudo rm -rf /media/pi/SSD* /mnt/SSD2
 
 
-# Purge old version
+# 1. Completely remove old installation
 sudo apt purge transmission-* -y
 sudo apt autoremove -y
 sudo rm -rf /etc/transmission-daemon ~/.config/transmission
 
-# Fresh install
+# 2. Fresh install
 sudo apt update
 sudo apt install transmission-daemon transmission-gtk -y
 
 
+# Configure settings.json
 sudo systemctl stop transmission-daemon
 sudo nano /etc/transmission-daemon/settings.json
 
@@ -83,15 +84,19 @@ sudo chown -R debian-transmission:debian-transmission /etc/transmission-daemon
 sudo systemctl enable --now transmission-daemon
 
 
+# GUI + Web Interface Sync
 transmission-gtk
 
 
-Go to Edit → Preferences → Remote
-Enable remote control
+In the GUI window, go to:
+Edit → Preferences → Remote
+Configure the following:
+✅ Enable remote control
 Host: 192.168.10.115
 Port: 9091
 Username: transmission
-Password: (the one you set above)
+Password: (the password you set in settings.json)
 
+Click Apply or OK.
 
-Both the GUI and web interface should now show the same torrents.
+Both the web interface (http://192.168.10.115:9091) and the GUI should now display the same torrents and stay in sync.
