@@ -1,102 +1,96 @@
 ﻿# 05 - Transmission on Raspberry Pi
 
-**Last Updated:** July 2025  
-**Host:** `rpi-torrent` @ `192.168.10.115`
+**Host:** `rpi-torrent` @ `192.168.10.115`  
+**Last Updated:** May 2026
 
-This guide documents a clean, reliable Transmission setup using a dedicated 2TB SSD mounted at `/mnt/SSD1`.
+Transmission runs as the `pi` user using **transmission-gtk** (GUI + Web UI).
 
 ## Configuration Summary
 
 | Item                      | Value                                      |
 |---------------------------|--------------------------------------------|
-| **Download Directory**    | `/mnt/SSD1/Downloads/complete`             |
-| **Incomplete Directory**  | `/mnt/SSD1/Downloads/incomplete`           |
+| **Download Directory**    | `/media/pi/SSD1/Downloads/complete`        |
+| **Incomplete Directory**  | `/media/pi/SSD1/Downloads/incomplete`      |
 | **Web Interface**         | `http://192.168.10.115:9091`               |
-| **RPC Port**              | `9091`                                     |
-| **SMB Share**             | `\\192.168.10.115\SSD1`                    |
+| **SMB Share**             | `//192.168.10.115/Downloads`               |
 
 ---
 
-## SSD Setup - Clean Mount at `/mnt/SSD1`
-
-### 1. Prepare the SSD (One-time)
+## 1. SSD Mount (Persistent)
 
 ```bash
-# Wipe and partition SSD1
-sudo wipefs -a /dev/sda
-sudo fdisk /dev/sda
-# Inside fdisk: o → n → p → 1 → [Enter] → [Enter] → w
+# Create mount point
+sudo mkdir -p /media/pi/SSD1
 
-sudo mkfs.ext4 /dev/sda1
+# Mount manually (replace /dev/sda1 with your SSD)
+sudo mount /dev/sda1 /media/pi/SSD1
 
-# Create mount point and mount
-sudo mkdir -p /mnt/SSD1
-sudo mount /dev/sda1 /mnt/SSD1
-
-# Get UUID for persistent mount
-lsblk -f | grep sda1
-
-
+# Make mount permanent
+sudo blkid | grep sda1
 sudo nano /etc/fstab
+```
 
+Add this line to /etc/fstab:
 
-UUID=xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx /mnt/SSD1 ext4 defaults,noatime 0 2
+```bash
+UUID=xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx /media/pi/SSD1 ext4 defaults,noatime 0 2
+```
 
+```bash
+sudo mkdir -p /media/pi/SSD1/Downloads/{complete,incomplete}
+sudo chown -R pi:pi /media/pi/SSD1/Downloads
+sudo chmod -R 775 /media/pi/SSD1/Downloads
+```
 
-sudo mkdir -p /mnt/SSD1/Downloads/{complete,incomplete}
-sudo chown -R debian-transmission:debian-transmission /mnt/SSD1/Downloads
-sudo chmod -R 775 /mnt/SSD1/Downloads
+## 2. Transmission Setup
+```bash
+# Stop Transmission if running
+killall transmission-gtk
 
-# Clean up old stale mount points
-sudo rm -rf /media/pi/SSD* /mnt/SSD2
+# Edit settings
+nano ~/.config/transmission/settings.json
+```
 
+Key settings:
 
-# 1. Completely remove old installation
-sudo apt purge transmission-* -y
-sudo apt autoremove -y
-sudo rm -rf /etc/transmission-daemon ~/.config/transmission
-
-# 2. Fresh install
-sudo apt update
-sudo apt install transmission-daemon transmission-gtk -y
-
-
-# Configure settings.json
-sudo systemctl stop transmission-daemon
-sudo nano /etc/transmission-daemon/settings.json
-
-
+```bash
 {
-  "download-dir": "/mnt/SSD1/Downloads/complete",
-  "incomplete-dir": "/mnt/SSD1/Downloads/incomplete",
+  "download-dir": "/media/pi/SSD1/Downloads/complete",
+  "incomplete-dir": "/media/pi/SSD1/Downloads/incomplete",
   "incomplete-dir-enabled": true,
-  "rpc-authentication-required": true,
-  "rpc-username": "transmission",
-  "rpc-password": "YourStrongPasswordHere",
+  "script-torrent-done-enabled": true,
+  "script-torrent-done-filename": "/home/pi/move_to_truenas.sh",
+  "rpc-enabled": true,
   "rpc-port": 9091,
   "rpc-whitelist-enabled": false,
-  "rpc-bind-address": "0.0.0.0",
-  "rpc-enabled": true
+  "rpc-authentication-required": true,
+  "rpc-username": "transmission",
+  "rpc-password": "YourStrongPassword"
 }
+```
 
+## 3. Start & Access
+- Launch GUI: transmission-gtk &
+- Web UI: http://192.168.10.115:9091
 
-sudo chown -R debian-transmission:debian-transmission /etc/transmission-daemon
-sudo systemctl enable --now transmission-daemon
+## 4. Samba Share (for *arr apps)
+```bash
+sudo nano /etc/samba/smb.conf
+```
 
+Add at the bottom:
+```ini
+[Downloads]
+path = /media/pi/SSD1/Downloads
+browseable = yes
+writable = yes
+guest ok = no
+valid users = pi
+create mask = 0775
+directory mask = 0775
+```
 
-# GUI + Web Interface Sync
-transmission-gtk
-
-
-In the GUI window, go to:
-Edit → Preferences → Remote
-Configure the following:
-✅ Enable remote control
-Host: 192.168.10.115
-Port: 9091
-Username: transmission
-Password: (the password you set in settings.json)
-
-Click Apply or OK.
-
-Both the web interface (http://192.168.10.115:9091) and the GUI should now display the same torrents and stay in sync.
+```bash
+sudo smbpasswd -a pi
+sudo systemctl restart smbd
+```
