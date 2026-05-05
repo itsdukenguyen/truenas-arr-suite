@@ -53,7 +53,7 @@ nano ~/.config/transmission/settings.json
 
 Key settings:
 
-```bash
+```JSON
 {
   "download-dir": "/media/pi/SSD1/Downloads/complete",
   "incomplete-dir": "/media/pi/SSD1/Downloads/incomplete",
