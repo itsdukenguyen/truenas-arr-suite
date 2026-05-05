@@ -66,7 +66,15 @@ echo "Scan notifications sent to *arr apps."
 chmod +x /home/pi/move_to_truenas.sh
 ```
 
-3. Ensure it's set in Transmission's `settings.json:JSON`:
+3. Configure Transmission to use the script
+- Open Transmission settings (`~/.config/transmission/settings.json`)
+- Ensure this line exists:
 ```JSON
-"script-torrent-done-filename": "/home/pi/move_to_truenas.sh"
+"script-torrent-done-filename": "/home/pi/move_to_truenas.sh",
+"script-torrent-done-enabled": true
+```
+
+4. Test the script
+```bash
+TR_TORRENT_DIR="/media/pi/SSD1/Downloads/complete" TR_TORRENT_NAME="testfile.mkv" /home/pi/move_to_truenas.sh
 ```
