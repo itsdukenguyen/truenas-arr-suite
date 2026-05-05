@@ -1,5 +1,7 @@
 # TrueNAS SCALE *arr Suite Setup
 
+![TrueNAS arr Suite Banner](banner.jpg)
+
 [![TrueNAS SCALE](https://img.shields.io/badge/TrueNAS-SCALE-00b2a9?style=for-the-badge&logo=truenas)](https://www.truenas.com/)
 [![Radarr](https://img.shields.io/badge/Radarr-FF0000?style=for-the-badge)](https://radarr.video/)
 [![Sonarr](https://img.shields.io/badge/Sonarr-00AEEF?style=for-the-badge)](https://sonarr.tv/)
@@ -8,7 +10,6 @@
 [![Jellyfin](https://img.shields.io/badge/Jellyfin-00B5E5?style=for-the-badge)](https://jellyfin.org/)
 
 Complete, battle-tested documentation for my automated media server stack on **TrueNAS SCALE**.
-
 ### Stack Includes:
 - **Radarr** — Movies
 - **Sonarr** — TV Shows  
