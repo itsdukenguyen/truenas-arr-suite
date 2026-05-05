@@ -76,5 +76,7 @@ chmod +x /home/pi/move_to_truenas.sh
 
 4. Test the script
 ```bash
-TR_TORRENT_DIR="/media/pi/SSD1/Downloads/complete" TR_TORRENT_NAME="testfile.mkv" /home/pi/move_to_truenas.sh
+TR_TORRENT_DIR="/media/pi/SSD1/Downloads/complete" \
+TR_TORRENT_NAME="testfile.mkv" \
+/home/pi/move_to_truenas.sh
 ```
