@@ -55,3 +55,18 @@ curl -X POST "$LIDARR_URL" \
      -d '{"name":"DownloadedAlbumsScan","path":"/downloads"}' --silent --output /dev/null
 
 echo "Scan notifications sent to *arr apps."
+```
+
+## How to Use
+
+1. Replace the API keys with your actual keys from each *arr app (Settings → General).
+2. Make the script executable:Bash
+
+```bash
+chmod +x /home/pi/move_to_truenas.sh
+```
+
+3. Ensure it's set in Transmission's `settings.json:JSON`:
+```JSON
+"script-torrent-done-filename": "/home/pi/move_to_truenas.sh"
+```
