@@ -6,10 +6,10 @@
 
 ## Screenshots
 ![Jellyfin](../screenshots/01-jellyfin-dataset-structure.png)
-![Radarr](../screenshots/01-radarr-dataset-structure.png)
-![Sonarr](../screenshots/01-sonarr-dataset-structure.png)
-![Lidarr](../screenshots/01-lidarr-dataset-structure.png)
-![Bazarr](../screenshots/01-bazarr-dataset-structure.png)
+![Radarr](../screenshots/radarr/01-radarr-dataset-structure.png)
+![Sonarr](../screenshots/sonarr/01-sonarr-dataset-structure.png)
+![Lidarr](../screenshots/lidarr/01-lidarr-dataset-structure.png)
+![Bazarr](../screenshots/bazarr/01-bazarr-dataset-structure.png)
 
 ## Permissions
 ```bash
